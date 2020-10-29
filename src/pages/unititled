@@ -1,0 +1,45 @@
+
+                    <div class="mx-auto">
+                    <div class="container-login100">
+                        <div class="wrap-login100">
+                            <form class="w-100 validate-form">
+                                <span class="login100-form-title pb-5">
+                                    Welcome &nbsp; <FontDownloadIcon fontSize="large" />
+                                </span>
+                                <div class="wrap-input100 validate-input" >
+                                    <span className="d-block text-center" style={{marginBottom:"-5px"}}>Email  address</span>
+                                    <input class="input100 d-block" type="text" name="email" autoComplete="off" />
+                                    <div className='mt-3'>
+                                    <span class="err-msg text-danger d-block mt-3" data-placeholder="Email"> <ErrorIcon /> Valid email is: username@host.ext</span>
+                                    </div>
+                                </div>
+
+                                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                                <span className="d-block text-center">Password</span>
+                                    <span class="btn-show-pass">
+                                       {showPass === 0 ? <VisibilityOffIcon onClick={showOrHidePassword} />:<VisibilityIcon onClick={showOrHidePassword}/> } 
+                                    </span>
+                                    <input class="input100" type={showPass === 0 ?"password":"text"}  autoComplete="off" name="pass" />
+                                    <span class="focus-input100" data-placeholder="Password"></span>
+                                </div>
+
+                                <div class="container-login100-form-btn">
+                                    <div class="wrap-login100-form-btn">
+                                        <div class="login100-form-bgbtn"></div>
+                                        <button class="login100-form-btn">
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="text-center pt-5">
+                                    <span class="txt1">
+                                        Don’t have an account?
+                                    </span>
+                                    <Link className="txt2" to="/signup">Sign Up</Link>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+ 

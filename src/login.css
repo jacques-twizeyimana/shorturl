@@ -1,0 +1,25 @@
+
+.border-r{
+    border-right: 1px solid rgb(230, 225, 225);
+}
+.border-b{
+    border-bottom: 1px solid rgb(230, 225, 225);
+}
+.login-img-form-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+@media screen and (max-width:600px){
+    .login-img-form-div div {
+        width: 100%;
+        border:none !important;
+    }
+    .login-img-form-div{
+        flex-direction: column-reverse;
+    }
+}
