@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import NotFound from './pages/not-found';
 import Login from './pages/login';
+import RedirectLink from './pages/redirect';
 
 function App() {
 
@@ -13,11 +14,7 @@ function App() {
         <Switch>
             <Route  path="/" exact  component={HomePage} />
             <Route  path="/login" exact  component={Login} />
-            {/* <Route path="enterprise" exact component={} />
-            <Route path="/quotes" exact component={Shorten} />
-            <Route path="/login" exact component={Footer} />
-            <Route path="/signup" exact component={Navbar} /> */}
-            <Route path="/:id" component={NotFound} />
+            <Route path="/:id" exact component={RedirectLink} />
             <Route path="/" component={NotFound} />
         </Switch>
       </Router>

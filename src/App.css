@@ -115,6 +115,10 @@ body,html{
 }
 .text-grey{
   color: #cccccc;
+  /* color:rgba(16, 16, 151, 0.671); */
+}
+.wrap-text{
+  word-wrap: break-word;
 }
 
 /* .short-url-bg{
@@ -124,4 +128,8 @@ body,html{
 .font-80{
   font-size: 100px !important;
   color: rgba(0, 0, 255, 0.651);
+}
+
+.text-black{
+  color: rgba(3, 3, 3, 0.822) !important;
 }

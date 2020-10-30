@@ -14,7 +14,7 @@ export default function Index() {
                         <p className="app-todo-message text-center">A URL shortener built with powerful tools to help you grow and protect your brand.</p>
                     </div>
                     <div className="mt-5">
-                        <button className="btn btn-primary btn-lg">Get started for free</button>
+                        <button className="btn btn-primary btn-lg p-3">Get started for free</button>
                         <p className="text-center mt-3">
                         Feeling demotivated?<Link to="/getaquote" className="text-primary"> get a quote</Link>
                         </p>
