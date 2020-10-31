@@ -133,3 +133,15 @@ body,html{
 .text-black{
   color: rgba(3, 3, 3, 0.822) !important;
 }
+
+.text-copied{
+  position: fixed;
+  bottom: 0 !important;
+  z-index: 3;
+}
+
+.cancel-btn{
+  position: absolute;
+  right: 40px;
+  top:20px;
+}
