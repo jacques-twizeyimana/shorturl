@@ -26,7 +26,7 @@ export default function Shorten() {
             data.user_id = localStorage.getItem('user')
         }
         setLoadingUrl(true)
-        Axios.post('/urls',data,config)
+        Axios.post('/urls/',data,config)
         .then(resp =>{
             if(!resp.data.error){
                 console.log(resp.data)

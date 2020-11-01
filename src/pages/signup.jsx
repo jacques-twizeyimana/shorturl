@@ -4,7 +4,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import AppleIcon from '@material-ui/icons/Apple';
 // import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { ArrowBack, Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -58,12 +58,18 @@ export default function Signup(){
         else if(values.fname.trim().length < 3) setValidationError({status:true,message:"First name must be atleast 3 charcters long!"})
         else if(values.lname.trim().length < 5) setValidationError({status:true,message:"Last name must be atleast 5 charcters long!"})
 
-        else if(!passwordRegex.test(values.password)) setValidationError({status:true,message:"Password must be atleast 8 characters long,contain atleast 1 letter and atleast 1 number"})
+        else if(!passwordRegex.test(values.password)) setValidationError({status:true,message:"Password must be atleast 8 characters long,contain atleast 1 lower letter,atleast 1 capital letter, atleast one number, and atleast one special character"})
         else if(values.password !== values.rpassword) setValidationError({status:true,message:"Your passwords doesn't much! please verify your password"})
         else if(!emailRegex.test(values.email)) setValidationError({status:true,message:"Email must be a valid email address"})
         else{
           setValidationError({status:false,message:''})
-          Axios.post('/users',{fname:values.fname.trim(),lname:values.lname.trim(),password:values.password,email:values.email.trim()})
+          let config = {
+            headers:{
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            }
+          }
+          Axios.post('https://nice-url-backend.herokuapp.com/api/users',{fname:values.fname.trim(),lname:values.lname.trim(),password:values.password,email:values.email.trim()},config)
           .then(res =>{
             if(res.data.error){
               setValidationError({status:true,message:res.data.error.message + ' - '+ res.data.error.title})
@@ -75,6 +81,7 @@ export default function Signup(){
             
           })
           .catch(err =>{
+            console.error(err)
             setValidationError({status:true,message:"Unknown error occurred.May be your internet is not stable.Check your connection and try again"})
           })
         }
@@ -160,8 +167,8 @@ export default function Signup(){
                               : ''
                               } 
                               <Button className="signup-btn mt-4" size="large" onClick={makeValidation}>Sign up</Button>
-                              <div class="text-center pt-3">
-                                <span class="txt1">Already have an account?&nbsp;<Link className="text-primary" to='/login'>Sign In</Link></span>
+                              <div className="text-center pt-3">
+                                <span className="txt1">Already have an account?&nbsp;<Link className="text-primary" to='/login'>Sign In</Link></span>
                               </div>
                             </div>
                             </div>

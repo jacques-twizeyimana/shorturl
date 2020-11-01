@@ -8,7 +8,7 @@ export default function Loading(){
         <NavBar />
         <div className="bg-light p-5 col-12" style={{minHeight:'80vh'}}>
             <div className="m-auto">
-                <h2 className="mx-auto col-4 loading h-70"></h2>
+                <p className="mx-auto col-4 loading h-70"></p>
                 <div className="mx-auto mt-5 row">
                     <Typography className="mx-auto col-2 mr-4 loading h-50"></Typography>
                     <Typography className="col-6 mx-auto loading h-40"></Typography>

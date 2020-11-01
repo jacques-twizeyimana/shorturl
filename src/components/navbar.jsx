@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import '../navbar.css'
 
 export default function NavBar() {
