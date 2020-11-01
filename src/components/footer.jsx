@@ -42,7 +42,7 @@ export default function Footer() {
   </div>
   <div class="footer-copyright text-center py-3">
       <h6>© {new Date().getFullYear()} Copyright:
-    <a href="https://shorturl.netlify.com/" className="color-white"> ShortURL.com</a>
+    <a href="https://niceurl.tk" className="color-white"> Niceurl.tk</a>
     </h6> 
   </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "shorturl",
-  "proxy": "http://127.0.0.1:5000/api",
+  "proxy": "https://nice-url-backend.herokuapp.com/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
