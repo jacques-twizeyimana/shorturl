@@ -69,7 +69,7 @@ export default function Signup(){
               Accept: "application/json"
             }
           }
-          Axios.post('https://nice-url-backend.herokuapp.com/api/users',{fname:values.fname.trim(),lname:values.lname.trim(),password:values.password,email:values.email.trim()},config)
+          Axios.post('/api/users',{fname:values.fname.trim(),lname:values.lname.trim(),password:values.password,email:values.email.trim()},config)
           .then(res =>{
             if(res.data.error){
               setValidationError({status:true,message:res.data.error.message + ' - '+ res.data.error.title})

@@ -11,49 +11,41 @@ import ErrorIcon from '@material-ui/icons/Error';
 import '../login.css'
 import '../login-1.css'
 import { Link } from 'react-router-dom';
+import userService from '../services/user_service'
+
 
 export default function Login() {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(e.target)
+
+        userService.login(values)
+            .then(res =>{
+                if(res.error) {
+                    window.alert(res.error)
+                    return
+                }
+
+                let user = res.data 
+                console.log(user)
+            })
     }
+
+    const [values, setValues] = React.useState({
+        password:'',
+        email:''
+    })
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+     };
 
     const [showPass,setShowPass] =React.useState(0)
-    const [validation,setValidation] = React.useState(0)
+    const [errorOccured,setErrorOccured] = React.useState({status:false,message:''})
 
     const showOrHidePassword = () =>{
-        if(showPass === 0) {
-            setShowPass(1)
-        }
-        else {
-            setShowPass(0)
-        }
-    }
-
-    const validateEmail = (value) =>{
-
-    }
-
-    const validatePassword = (event) =>{
-        let value = event.target.value
-        if(value.length < 6) {
-            setValidation({
-                emailHasError:false,
-                pswdHasError:true,
-                emailErrorMessage:false,//validation.emailErrorMessage,
-                pswdErrorMessage:"Password must be atleast 6 characters long"
-            })
-        }
-        else{
-            setValidation({
-                emailHasError:false,
-                pswdHasError:false,
-                emailErrorMessage:validation.emailErrorMessage,
-                pswdErrorMessage:"well done"
-            })
-        }
-        console.log(validation)
+        if(showPass === 0) setShowPass(1)
+        else setShowPass(0)
     }
     
     return <div className="login-page">
@@ -77,24 +69,20 @@ export default function Login() {
                                         </span>
 
                                         <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-                                            <input class="input100" type="email"  autoComplete="off" name="email" />
+                                            <input class="input100" type="email" onChange={handleChange('email')}  autoComplete="off" name="email" />
                                             <span class="focus-input100" data-placeholder="Email"></span>
-                                        </div>
-
-                                        <div className={validation.emailHasError ? ' d-block' : ' d-none'}>
-                                            <span  id="emailErrMsg" className={ 'text-danger text-center font-roboto' }> <ErrorIcon />{validation.emailErrorMessage}</span>
                                         </div>
 
                                         <div class="wrap-input100 validate-input" data-validate="Enter password">
                                             <span class="btn-show-pass">
                                             {showPass === 0 ? <VisibilityOffIcon onClick={showOrHidePassword} />:<VisibilityIcon onClick={showOrHidePassword}/> } 
                                             </span>
-                                            <input class="input100" onKeyUp={validatePassword} type={showPass === 0 ?"password":"text"}  autoComplete="off" name="pass" />
+                                            <input class="input100" onChange={handleChange('password')} type={showPass === 0 ?"password":"text"}  autoComplete="off" name="pass" />
                                             <span class="focus-input100" data-placeholder="Password"></span>
                                         </div>
 
-                                        <div className={validation.pswdHasError ? ' d-block' : ' d-none'}>
-                                            <span  id="pswdErrMsg" className={ 'text-danger d-none  text-center font-roboto'}> <ErrorIcon /> {validation.pswdErrorMessage} </span>
+                                        <div className={errorOccured.status ? ' d-block' : ' d-none'}>
+                                            <span  id="pswdErrMsg" className={ 'text-danger d-none  text-center font-roboto'}> <ErrorIcon /> {errorOccured.message} </span>
                                         </div>
 
                                         <div class="container-login100-form-btn">
