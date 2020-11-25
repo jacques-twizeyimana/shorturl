@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Background from '../www-rafiki.png'
+import Background from '../static/img/www-rafiki.png'
 
 
 export default function Index() {
@@ -9,12 +9,11 @@ export default function Index() {
             <div className="row mt-5">
                 <div className="col-md-7">
                     <div>
-                        <h1 className="app-fn-title mt-3 mb-3">Short links, big results</h1>
-                        <p className="app-todo-message text-center">Create simple,short and easily memorable links and share them to your friends.<br/>Make the web better by sharing memories</p>
-                        <p className="app-todo-message text-center">A URL shortener built with powerful tools to help you grow and protect your brand.</p>
+                        <h1 className="app-fn-title mt-3 mb-3">Enhancing easy sharing</h1>
+                        <p className="app-todo-message text-right">Create simple,short and easily memorable links and share them to your friends.<br/>Make the web better by sharing memories</p>
                     </div>
                     <div className="mt-5">
-                        <button className="btn btn-primary btn-lg p-3">Get started for free</button>
+                        <button className="btn btn-primary btn-lg p-2">Get started for free</button>
                         <p className="text-center mt-3">
                         Feeling demotivated?<Link to="/getaquote" className="text-primary"> get a quote</Link>
                         </p>

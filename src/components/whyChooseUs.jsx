@@ -1,7 +1,7 @@
 import React from 'react'
-import Dashboard from "../statistics.png"
-import HappyUser from '../connected.png'
-import EarnMoney from '../earn-money.png'
+import Dashboard from "../static/img/statistics.png"
+import HappyUser from '../static/img/connected.png'
+import EarnMoney from '../static/img/earn-money.png'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 
@@ -10,7 +10,7 @@ export default function WhyChooseUs() {
         <div className="container-fluid bg-light pb-5">
                 <hr className="text-light"/>                
             <div className="container">
-                <h2 className="text-bold font-roboto p-3 app-color">why choose ShortURL?</h2>
+                <h2 className="text-bold font-roboto p-3 app-color">why choose niceurl</h2>
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-4 bg-white border p-3">
                         <img alt="" src={Dashboard} className="d-block w-100" style={{height:'250px'}}/>

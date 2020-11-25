@@ -1,36 +1,48 @@
 import React, { useRef } from 'react'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import TextRotationDownIcon from '@material-ui/icons/TextRotationDown';
-import Axios from 'axios';
 import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import UrlService from '../services/urlService'
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Shorten() {
     const shortCodeRef = useRef(null);
-    const [recentUrl,setRecentUrl] = React.useState({link:'https://www.youtube.com/watch?v=xnY9VUdHwWU',"code": "aU5y9rKG"})
+    const [recentUrl,setRecentUrl] = React.useState(JSON.parse(localStorage.getItem("recenturl")) ?? {link:'https://www.youtube.com/watch?v=xnY9VUdHwWU',"code": "aU5y9rKG"})
     const [linkCopied,setLinkCopied] = React.useState(false)
     const [loadingUrl,setLoadingUrl]  = React.useState(false)
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const myRef = useRef(null)
 
     const shortenURL = (url)=>{
-        let config = {
-            headers:{
-                "Content-Type":"application/json",
-                Accept: "application/json" 
-            }
-        }
-        let data = {
-            link:url
-        }
+
+        let data = {link:url}
 
         if(localStorage.getItem('user')){
-            config.headers.token = localStorage.getItem('token')
             data.user_id = localStorage.getItem('user')
         }
+
         setLoadingUrl(true)
-        Axios.post('/urls/',data,config)
+        handleClickOpen()
+        myRef.current.scrollIntoView()
+
+        UrlService.shorten(data)
         .then(resp =>{
             if(!resp.data.error){
                 console.log(resp.data)
+                localStorage.setItem('recenturl',JSON.stringify({link:resp.data.link,code:resp.data.code}))
                 setRecentUrl({link:resp.data.link,code:resp.data.code})
             }
             else console.error(resp.data)
@@ -44,8 +56,6 @@ export default function Shorten() {
         event.preventDefault()
 
         var urlToGo = document.getElementById('urlToGo').value
-        // var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-        // var expression = 'https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]'
         var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
         var regex = new RegExp(expression);        
 
@@ -63,6 +73,7 @@ export default function Shorten() {
 
         document.getElementById("shortLinkInput").setAttribute('class','d-none')
         setLinkCopied(true)
+        setOpen(false)
 
         setTimeout(() => {
             setLinkCopied(false)
@@ -70,21 +81,21 @@ export default function Shorten() {
     }
 
     return <div className="shorten-part ">
-    <div className="special-color-dark pt-5 pb-5" id="shortenpart">
-        <hr className="text-white"/>
-        <h1 className="app-fn-title mt-3 mb-3" style={{fontFamily:'Poppins'}}>try shorturls today!</h1>
-        <h4 className="font-roboto text-nobold text-grey text-center">have an long URL? type it here and see magic!</h4>
-        <p className="app-todo-message text-nobold text-grey text-center"> <TextRotationDownIcon/> Its easy: Just copy the link you want to share &amp; paste it int the input bellow!</p>
-        <div className="pt-2  pl-md-5 pr-md-5 pb-3 mx-auto">
-            <form className="form-inline my-lg-0" onSubmit={validateURL}>
-                <div className="col-lg-3 col-md"></div>
-                <input className="form-control d-inline-block col-xs-9 col-sm-9 col-md-7 col-lg-6" id="urlToGo" style={{borderRadius:'0px'}} type="search" placeholder="Copy paste the link here .... " aria-label="Search" />
-                <button className="btn btn-secondary  d-inline-block col-xs-3 col-sm-3 col-md-2 col-lg-1" onClick={validateURL} style={{borderRadius:'0px'}} type="submit">
-                    <ArrowForwardIcon/>
-                </button>
+    <div className="special-color-dark pt-5 pb-5" id="shortenpart" ref={myRef}>
+        <h1 className="app-fn-title mt-3 mb-3" style={{fontFamily:'Poppins'}}>try niceurls today!</h1>
+        <p className="text-grey text-center"> Its easy: Just copy the link you want to share &amp; paste it int the input bellow!</p>
+        <div className="pt-2  pl-md-5 pr-md-5 pb-3 container col-md-10  col-lg-8 mx-auto">
+            <form className="" onSubmit={validateURL}>
+                <div className="input-group mb-3 input-group-lg">
+                    <input type="text" id={"urlToGo"} className="form-control" placeholder="Paste url here..."
+                           aria-label="url to shorten" aria-describedby="basic-addon2" />
+                    <div className="input-group-append">
+                        <button className="btn btn-primary btn-lg" type="button" onClick={validateURL}>Shorten</button>
+                    </div>
+                </div>
             </form> 
         </div>
-        <div className="container-fluid bg-white p-5">
+        <div className="container rounded bg-white p-5" >
             <div className="row">
                 <div className="col-sm-12 col-md-6">
                     {loadingUrl ? <p className="loading h-40"></p>:
@@ -113,9 +124,48 @@ export default function Shorten() {
             </div>
         </div>
     </div>
+
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-short-link"
+            aria-describedby="alert-short-link-and-copy-it"
+            fullWidth={true}
+            maxWidth={"sm"}
+        >
+            <h2 className={"text-center pt-3 pb-3 text-gray"}> Copy short url </h2>
+            <hr className={"text-light"} />
+            <DialogContent>
+                <div className="rounded bg-white" >
+                        <div className="row mt-5 mt-md-0">
+                            <div className={"col-10"}>
+                                {loadingUrl ?
+                                    <p className="loading h-40"></p>:
+                                    <Link style={{color:"rgba(16, 16, 151, 0.671)"}} to={`/${recentUrl.code}`}>
+                                        <Typography variant="h6" className="wrap-text">niceurl.tk/{recentUrl.code}</Typography>
+                                    </Link>
+
+                                }
+                            </div>
+                            <div className="col-2">
+                                {loadingUrl ? <p className="loading h-50 border"></p>:
+                                    <button className="btn btn-outline-primary" onClick={copyShortLink}>Copy</button>
+                                }
+                            </div>
+                        </div>
+                </div>
+
+            </DialogContent>
+            <hr className={"text-light mt-3 mb-3"} />
+            <DialogActions>
+                <button onClick={handleClose} className="btn btn-danger" autoFocus>
+                    close
+                </button>
+            </DialogActions>
+        </Dialog>
     {linkCopied ?
-        <div className="container-fluid bg-dark p-4 text-copied">
-            <h5 className="text-light">Your short link copied to clipboard</h5>
+        <div className="container-fluid bg-light border-top p-4 text-copied">
+            <h5 className="text-center">Your short link copied to clipboard</h5>
             <button className="btn btn-danger cancel-btn" onClick={()=>{setLinkCopied(false)}}>ok</button>
         </div> : ''
     }

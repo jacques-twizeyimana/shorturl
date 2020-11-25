@@ -145,3 +145,9 @@ body,html{
   right: 40px;
   top:20px;
 }
+
+@media screen and(max-width:600px){
+  .input-100{
+    border-bottom: 1px solid grey !important;
+  }
+}

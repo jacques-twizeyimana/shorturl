@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 // import SearchIcon from '@material-ui/icons/Search';
-import '../navbar.css'
+import '../static/css/navbar.css'
+import AccountMenu from './accountMenu'
 
 export default function NavBar() {
+  let user = JSON.parse(localStorage.getItem('user')) ?? null;
+
+  console.log(user)
 
   return <div className="container-fluid special-color-dark"> 
   <div className="container"></div>   
@@ -23,9 +27,18 @@ export default function NavBar() {
             </li>
           </ul>
           <span className="inline-text">
-            <Link className="nav-link-left btn" to="/signup">Signup</Link>
-            <Link className="nav-link-left btn btn-outline-secondary" to="/login">Login</Link>
-            <Link className="nav-link-left btn btn-primary" to="#quotes">get a Quote</Link>
+            {
+              user  ?
+                  <span>
+                    <Link className="nav-link-left btn btn-primary" to="#quotes">get a Quote</Link>
+                   <AccountMenu />
+                  </span>:
+                  <span>
+                    <Link className="nav-link-left btn" to="/signup">Signup</Link>
+                    <Link className="nav-link-left btn btn-outline-secondary" to="/login">Login</Link>
+                    <Link className="nav-link-left btn btn-primary" to="#quotes">get a Quote</Link>
+                  </span>
+            }
           </span>
           {/* <form className="form-inline my-2 my-lg-0">
             <input className="form-control" style={{borderRadius:'0px'}} type="search" placeholder="Search " aria-label="Search" />

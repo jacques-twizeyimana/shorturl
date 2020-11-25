@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 import React from 'react'
 import Footer from './footer'
 import NavBar from './navbar'
-import '../loading.css'
+import '../static/css/loading.css'
 export default function Loading(){
     return <div className="loading-main">    
         <NavBar />
