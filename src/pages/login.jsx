@@ -46,6 +46,7 @@ export default function Login() {
                 }
             })
             .catch(err =>{
+                setLoading(false)
                 setInvalidData({status: true,message: 'Unknown error occurred.May be your internet connection was interrupted.Please try again later'})
             })
     }

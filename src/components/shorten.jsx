@@ -98,7 +98,7 @@ export default function Shorten() {
         <div className="container rounded bg-white p-5" >
             <div className="row">
                 <div className="col-sm-12 col-md-6">
-                    {loadingUrl ? <p className="loading h-40"></p>:
+                    {loadingUrl ? <div><p className="loading h-40"></p><p className="loading h-40 mt-3"></p></div>:
                     <Typography className="text-bold font-roboto text-black" variant="h5" >
                        <a className="wrap-text" href={recentUrl.link}>{recentUrl.link} </a> 
                     </Typography>
@@ -116,7 +116,7 @@ export default function Shorten() {
                     }
                      </div>
                     <div className="col-2">
-                        {loadingUrl ? <p className="loading h-50 border"></p>:
+                        {loadingUrl ? <p className="loading h-40 border"></p>:
                         <button className="btn btn-outline-primary" onClick={copyShortLink}>Copy</button>
                     }
                     </div>                    
@@ -148,7 +148,7 @@ export default function Shorten() {
                                 }
                             </div>
                             <div className="col-2">
-                                {loadingUrl ? <p className="loading h-50 border"></p>:
+                                {loadingUrl ? <p className="loading h-40 border"></p>:
                                     <button className="btn btn-outline-primary" onClick={copyShortLink}>Copy</button>
                                 }
                             </div>

@@ -11,10 +11,11 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Footer from '../components/footer'
 import { Link, useHistory } from 'react-router-dom'
 import { Typography } from '@material-ui/core';
-import Axios from 'axios'
 import UserService from '../services/user_service'
 
+
 import CircularProgress from '@material-ui/core/CircularProgress';
+// import { useForm } from "react-hook-form";
 
 export default function Signup(){
     let history = useHistory()
@@ -88,13 +89,7 @@ export default function Signup(){
       }
 
     return <div className="signup-page">
-        {/* <Navbar /> */}
         <div className="signup-part container-fluid p-md-5 bg-light">
-          {/* <div className="goback col-4">
-              <IconButton >
-                <ArrowBack fontSize="large" />
-              </IconButton>
-          </div> */}
             <div className="border-white bg-white" style={{borderRadius:"8px"}}>
                 <div className="d-flex login-img-form-div">
                     <div className="col-sm-12 col-md-5 bg-img pt-5 pb-5 pr-3 pl-3" style={{minHeight:"80vh"}}>
