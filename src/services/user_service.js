@@ -2,7 +2,7 @@ import Axios from 'axios'
 
 
 class usersService{
-    domain = "http://127.0.0.1:5000/api"
+    domain = "https://nice-url-backend.herokuapp.com/api"
     config = {
         headers:{
             "Content-Type":"application/json",

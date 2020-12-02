@@ -1,11 +1,10 @@
 import { Typography } from '@material-ui/core';
-import Axios from 'axios';
 import React,{ useState,useEffect } from 'react';
 import Footer from '../components/footer';
-import Loading from '../components/loading';
 import NavBar from '../components/navbar';
 
 import NotFound from './not-found';
+import UrlService from '../services/urlService'
 
 
 export default function RedirectLink() {
@@ -20,7 +19,7 @@ export default function RedirectLink() {
     },[])
     
     const callData = () =>{
-        Axios.get('/urls/code/'+code)
+        UrlService.getByCode(code)
         .then(resp =>{
             if(resp.data.error){
                 console.error(resp.data.error)
@@ -52,7 +51,7 @@ export default function RedirectLink() {
                     </div>
                 </div>
                 <Footer />
-            </div>: <Loading /> 
+            </div>: <></> 
             
         }
     </div>    

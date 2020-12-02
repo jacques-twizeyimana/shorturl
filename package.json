@@ -1,6 +1,5 @@
 {
   "name": "shorturl",
-  "proxy": "https://nice-url-backend.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

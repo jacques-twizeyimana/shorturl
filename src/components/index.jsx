@@ -9,7 +9,7 @@ export default function Index() {
             <div className="row mt-5">
                 <div className="col-md-7">
                     <div>
-                        <h1 className="app-fn-title mt-3 mb-3">Enhancing easy sharing</h1>
+                        <h1 className="app-fn-title mt-3 mb-3">Simple url shortner</h1>
                         <p className="app-todo-message text-right">Create simple,short and easily memorable links and share them to your friends.<br/>Make the web better by sharing memories</p>
                     </div>
                     <div className="mt-5">
