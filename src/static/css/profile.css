@@ -1,0 +1,8 @@
+.recently-visited.bg{
+    height: 200px;
+}
+.link.elpsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

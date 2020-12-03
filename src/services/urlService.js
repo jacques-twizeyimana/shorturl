@@ -28,7 +28,9 @@ class UrlService{
     shorten(data){
         return Axios.post(this.domain + "/urls",data,this.config)
     }
-
+    recordVisit(data){
+        return Axios.post(this.domain + `/urls/visitor/${data}`)
+    }
     update(id,data){
         return Axios.put(this.domain + `/urls/${id}`,data,this.config)
     }

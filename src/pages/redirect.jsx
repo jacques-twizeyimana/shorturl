@@ -27,11 +27,30 @@ export default function RedirectLink() {
             }
             else{
                 window.location.href = resp.data.link
+                recordVisitor(resp.data._id)
             }
             return 0;
         })
         .catch(err => {
             setErrorOccured(true)
+            console.error(err)
+        })
+    }
+
+
+    const recordVisitor = (urlId) =>{
+        let user = localStorage.getItem('userloc')
+        let data = {
+            urlId,
+            country:user.country_name,
+            city:user.city,
+            ip:user.IPv4
+        }
+        UrlService.recordVisit(data)
+        .then(res=>{
+            console.log(res.data)
+        })
+        .catch(err =>{
             console.error(err)
         })
     }

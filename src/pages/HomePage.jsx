@@ -6,7 +6,6 @@ import Shorten from '../components/shorten';
 import WhyChooseUs from '../components/whyChooseUs';
 
 export default function HomePage() {
-
     return <div className="homepage">
         <Navbar/>
         <Index />
