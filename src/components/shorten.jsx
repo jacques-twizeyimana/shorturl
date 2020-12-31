@@ -6,6 +6,7 @@ import UrlService from '../services/urlService'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import * as Validator from 'validatorjs';
 
 export default function Shorten() {
     const shortCodeRef = useRef(null);
@@ -53,15 +54,15 @@ export default function Shorten() {
     const validateURL = (event)=>{
         event.preventDefault()
 
-        var urlToGo = document.getElementById('urlToGo').value
-        var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-        var regex = new RegExp(expression);        
-
-        if (urlToGo.match(regex)) {
-            shortenURL(urlToGo)
-        } else {
-        console.error('invalid link')
+        var url = document.getElementById('urlToGo').value
+        let validation = new Validator({url},{url:'required|url'})
+        if(validation.passes()){
+            shortenURL(url)
         }
+        else{
+            window.alert(validation.errors.first('url'))
+        }
+        
     }
 
     const copyShortLink = (e) =>{

@@ -12,6 +12,7 @@ import Footer from '../components/footer'
 import { Link, useHistory } from 'react-router-dom'
 import { Typography } from '@material-ui/core';
 import UserService from '../services/user_service'
+import * as Validator from 'validatorjs';
 
 
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,12 +22,12 @@ export default function Signup(){
     let history = useHistory()
     const [validationError,setValidationError] = React.useState({status:false,message:""})
     const [loading, setLoading] = React.useState(false);
-    const [values, setValues] = React.useState({
-        lname: '',
-        fname:'',
-        password: '',
-        rpassword: '',
+    const [values, setValues] = React.useState({      
+        firstname:'',
+        lastname: '',
         email: '',
+        password: '',
+        password_confirmation: '',
         showPassword: false,
       });
         let user = JSON.parse(localStorage.getItem('user'))
@@ -45,29 +46,22 @@ export default function Signup(){
       };
 
       const makeValidation = () =>{
-        setValidationError({status:false,message:''})
-        var specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        var passwordRegex=new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-        var emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+        let rules = {
+          firstname:'required|min:3|max:40',
+          lastname: 'required|min:3|max:40',
+          email: 'required|min:7|max:40|email',
+          password: 'required|min:6|max:40|confirmed',
+        }
+        let validation = new Validator(values, rules)
 
-        if(specialChars.test(values.fname)|| specialChars.test(values.lname)) setValidationError({status:true,message:"A name cannot contain special characters!"})
-
-        else if(values.fname.trim().length === 0) setValidationError({status:true,message:"First name is required!"})
-        else if(values.password.trim().length === 0) setValidationError({status:true,message:"Password is required.Please fill its field!"})
-        else if(values.email.trim().length === 0) setValidationError({status:true,message:"Email adress is required!"})
-        else if(values.lname.trim().length === 0) setValidationError({status:true,message:"Last name is s required field!"})
-        else if(values.rpassword.trim().length === 0) setValidationError({status:true,message:"Please repeat the password before continuing."})
-
-        else if(values.fname.trim().length < 3) setValidationError({status:true,message:"First name must be atleast 3 charcters long!"})
-        else if(values.lname.trim().length < 5) setValidationError({status:true,message:"Last name must be atleast 5 charcters long!"})
-
-        else if(!passwordRegex.test(values.password)) setValidationError({status:true,message:"Password must be atleast 8 characters long,contain atleast 1 lower letter,atleast 1 capital letter, atleast one number, and atleast one special character"})
-        else if(values.password !== values.rpassword) setValidationError({status:true,message:"Your passwords doesn't much! please verify your password"})
-        else if(!emailRegex.test(values.email)) setValidationError({status:true,message:"Email must be a valid email address"})
+        if(validation.fails()){
+          let errM = validation.errors.first('firstname') || validation.errors.first('lastname') || validation.errors.first('email') || validation.errors.first('password')
+          setValidationError({status:true,message:errM})
+        }
         else{
           setValidationError({status:false,message:''})
           setLoading(true)
-          let data = {fname:values.fname.trim(),lname:values.lname.trim(),password:values.password,email:values.email.trim()}
+          let data = {firstname:values.firstname.trim(),lastname:values.lastname.trim(),password:values.password,email:values.email.trim()}
           UserService.signUp(data)
           .then(res =>{
             setLoading(false)
@@ -120,8 +114,8 @@ export default function Signup(){
                         <div className="row">
                           <div className="signup-email mt-3 col-sm-12 col-md-8 mx-auto">
                             <div className="name">
-                              <TextField id="fName" label="First name" value={values.fname} onChange={handleChange('fname')} className="w-100" variant="outlined" />
-                              <TextField id="lName" label="Last name" className="w-100 mt-3" value={values.lname} onChange={handleChange('lname')} variant="outlined" />
+                              <TextField id="firstname" label="First name" value={values.firstname} onChange={handleChange('firstname')} className="w-100" variant="outlined" />
+                              <TextField id="lastname" label="Last name" className="w-100 mt-3" value={values.lastname} onChange={handleChange('lastname')} variant="outlined" />
                             </div>
                             <div className="email  mt-3">
                               <TextField id="email" label="Email address" type="email" value={values.email} onChange={handleChange('email')} className="w-100" variant="outlined" />
@@ -144,9 +138,9 @@ export default function Signup(){
                                   />
                               </FormControl>
                               <FormControl variant="outlined" className="d-block mt-3">
-                                <InputLabel htmlFor="rpassword">{'Repeat password'}</InputLabel>
-                                <OutlinedInput id="rpassword" type={values.showPassword ? 'text' : 'password' }
-                                  value={values.rpassword} onChange={handleChange('rpassword')} className="w-100"
+                                <InputLabel htmlFor="password_confirmation">{'Repeat password'}</InputLabel>
+                                <OutlinedInput id="password_confirmation" type={values.showPassword ? 'text' : 'password' }
+                                  value={values.password_confirmation} onChange={handleChange('password_confirmation')} className="w-100"
                                   endAdornment={ <InputAdornment position="end">
                                   <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword} edge="end">
