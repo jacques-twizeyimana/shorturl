@@ -6,7 +6,7 @@ import Background from '../static/img/www-rafiki.png'
 export default function Index() {
     return <div className="indexPage">
         <div className="container-fluid">
-            <div className="row mt-5">
+            <div className="row mt-5  mb-5">
                 <div className="col-md-7">
                     <div>
                         <h1 className="app-fn-title mt-3 mb-3">Simple url shortner</h1>

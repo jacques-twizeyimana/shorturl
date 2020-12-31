@@ -65,7 +65,7 @@ export default function Shorten() {
     }
 
     const copyShortLink = (e) =>{
-        document.getElementById("shortLinkInput").removeAttribute('class')
+        document.getElementById("shortLinkInput").setAttribute('class','d-block')
         shortCodeRef.current.select();
         document.execCommand('copy');
 
@@ -107,8 +107,8 @@ export default function Shorten() {
                         {loadingUrl ?
                             <p className="loading h-40"></p>:
                         <Link style={{color:"rgba(16, 16, 151, 0.671)"}} to={`/${recentUrl.code}`}>
-                            <Typography variant="h6" className="wrap-text">niceurl.tk/{recentUrl.code}</Typography>
-                            <input type="text" id="shortLinkInput" className="d-none" ref={shortCodeRef} value={`shorturl.tk/${recentUrl.code}`} />
+                            <Typography variant="h6" className="wrap-text">{`${window.location.host}/${recentUrl.code}`}</Typography>
+                            <input type="text" id="shortLinkInput" className="d-none" ref={shortCodeRef} value={`${window.location.host}/${recentUrl.code}`} />
                         </Link>                        
 
                     }
@@ -140,7 +140,7 @@ export default function Shorten() {
                                 {loadingUrl ?
                                     <p className="loading h-40"></p>:
                                     <Link style={{color:"rgba(16, 16, 151, 0.671)"}} to={`/${recentUrl.code}`}>
-                                        <Typography variant="h6" className="wrap-text">niceurl.tk/{recentUrl.code}</Typography>
+                                        <Typography variant="h6" className="wrap-text">{`${window.location.host}/${recentUrl.code}`}</Typography>
                                     </Link>
 
                                 }
